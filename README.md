@@ -1,8 +1,8 @@
 # SWTF
 
-This repository contains an **independent Python implementation** of the SWTF anomaly detection method proposed by Ming Xu, Jianping Wu, Haohan Wang, and Mengxin Cao in [*Anomaly Detection in Road Networks Using Sliding-Window Tensor Factorization* (IEEE Transactions on Intelligent Transportation Systems, 2019)](https://doi.org/10.1109/TITS.2019.2941649). It was developed as a baseline for the experimental evaluation of **MuTGN** and is **not** the original authors' software.
+This repository contains an independent Python implementation of the SWTF anomaly detection method proposed by Ming Xu, Jianping Wu, Haohan Wang, and Mengxin Cao in [*Anomaly Detection in Road Networks Using Sliding-Window Tensor Factorization* (IEEE Transactions on Intelligent Transportation Systems, 2019)](https://doi.org/10.1109/TITS.2019.2941649). It was developed as a baseline for the experimental evaluation of **MuTGN** and is not the original authors' software.
 
-The implementation detects **window-level anomalies** in temporal graphs. Each window corresponds to interactions occurring within a contiguous time interval and is represented by a sparse adjacency tensor. The code expects preprocessed windows in chronological order and assigns one continuous anomaly score to each window. 
+The implementation detects window-level anomalies in temporal graphs. Each window corresponds to interactions occurring within a contiguous time interval and is represented by a sparse adjacency tensor. The code expects preprocessed windows in chronological order and assigns one continuous anomaly score to each window. 
 
 The present implementation uses the HOSVD-based formulation of SWTF and produces a single anomaly score by combining reconstruction errors across tensor modes.
 
@@ -49,19 +49,19 @@ paths:
 
 `model.num_time_folds` defines the number of folds and `rank_mode_1`, `rank_mode_2`, and `rank_mode_3` specify the requested rank for each mode. 
 
-All paths in this example refer to locations **inside the container**.
+All paths in this example refer to locations inside the container.
 
 ## Input and output
 
-The implementation expects a directory of preprocessed windows, specified by `paths.test_dir`. Files must match the name pattern `window_*.pt` and are loaded in **lexicographic filename order**. Filenames must therefore preserve chronological order, for example by using zero-padded indices (`window_0000.pt`, `window_0001.pt`, and so on).
+The implementation expects a directory of preprocessed windows, specified by `paths.test_dir`. Files must match the name pattern `window_*.pt` and are loaded in lexicographic filename order. Filenames must therefore preserve chronological order, for example by using zero-padded indices (`window_0000.pt`, `window_0001.pt`, and so on).
 
-Each file is read with `torch.load()` and must contain the window's adjacency tensor under the key `A`, represented as a **three-dimensional sparse PyTorch COO tensor** of shape $N\times N\times T$. The code reads its nonzero indices, values, and shape; the input should be coalesced so these coordinates can be accessed. The first two dimensions correspond to source and destination node indices, and the third to time steps within the window. $N$ and $T$ should remain stable across windows. 
+Each file is read with `torch.load()` and must contain the window's adjacency tensor under the key `A`, represented as a three-dimensional sparse PyTorch COO tensor of shape $N\times N\times T$. The code reads its nonzero indices, values, and shape; the input should be coalesced so these coordinates can be accessed. The first two dimensions correspond to source and destination node indices, and the third to time steps within the window. $N$ and $T$ should remain stable across windows. 
 
-The detection script (`test.py`) writes a pickle file at `paths.score_file`. It contains a **Python list of floating-point anomaly scores** in the same order as the input windows. Window preparation and evaluation against ground-truth labels are handled outside this repository. 
+The detection script (`test.py`) writes a pickle file at `paths.score_file`. It contains a Python list of floating-point anomaly scores in the same order as the input windows. Window preparation and evaluation against ground-truth labels are handled outside this repository. 
 
 ## Reproducible environment
 
-A reconstructed environment using **Python 3.15.2** and the versions pinned in [`requirements-reconstructed.txt`](requirements-reconstructed.txt) has been validated in a local virtual environment and a container. The main dependencies are PyTorch `2.15.0`, NumPy `2.5.5`, SciPy `1.18.1`, and PyYAML `6.0.4`. 
+A reconstructed environment using Python 3.15.2 and the versions pinned in [`requirements-reconstructed.txt`](requirements-reconstructed.txt) has been validated in a local virtual environment and a container. The main dependencies are PyTorch `2.15.0`, NumPy `2.5.5`, SciPy `1.18.1`, and PyYAML `6.0.4`. 
 
 The [`Dockerfile`](Dockerfile) uses `python:3.15.2-slim-trixie`. From the repository root, build the image with [Podman](https://podman.io/) (Docker can also be used):
 
