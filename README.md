@@ -16,7 +16,7 @@ The original SWTF paper detects mode-wise anomalies by applying thresholding rul
 
 The present implementation instead projects $X$ along all three modes and computes a single continuous anomaly score from the resulting joint reconstruction error:
 
-$$ \operatorname{score}(X) =\frac{\|X-\hat X\|_F^2}{\|X\|_F^2} = 1 - \frac{\|G\|_F^2}{\|X\|_F^2}, $$
+$$ score(X) =\frac{\|X-\hat X\|_F^2}{\|X\|_F^2} = 1 - \frac{\|G\|_F^2}{\|X\|_F^2}, $$
 
 where $G = X \times_1 U_1^\top \times_2 U_2^\top \times_3 U_3^\top$ and $\hat X = G \times_1 U_1 \times_2 U_2 \times_3 U_3$. The second equality follows from the orthonormality of the columns of $U_m$.
 
