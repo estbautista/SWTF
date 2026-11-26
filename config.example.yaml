@@ -1,0 +1,8 @@
+model:
+  num_time_folds: 1
+  rank_mode_1: 8
+  rank_mode_2: 4
+  rank_mode_3: 1
+paths:
+  test_dir: /data/test
+  score_file: /outputs/scores.pkl

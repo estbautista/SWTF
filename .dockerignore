@@ -1,0 +1,17 @@
+.git/
+.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+
+data/
+outputs/
+**/tmp_*/
+*.pkl
+
+.vscode/
+.idea/
+.DS_Store
+
+config.yaml
